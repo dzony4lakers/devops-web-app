@@ -12,7 +12,7 @@ spec:
       labels:
         app: flask-app
     spec:
-      containters:
+      containers:
       - name: flask-app
         image: dzony4lakers/flask-app:latest
         ports:
