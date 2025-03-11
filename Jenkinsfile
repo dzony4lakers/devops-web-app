@@ -35,18 +35,9 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh 'kubectl apply -f deployment.yaml'
+                withCredentials([file(credentialsId: 'mykubeconfig', variable: 'KUBECONFIG')]) {
+                    sh 'kubectl apply -f deployment.yaml --kubeconfig $KUBECONFIG'
+                }
             }
         }
     }
-
-    post {
-        failure {
-            echo 'Pipeline failed! Cleaning up...'
-            // Add cleanup steps here
-        }
-        success {
-            echo 'Pipeline succeeded!'
-        }
-    }
-}
